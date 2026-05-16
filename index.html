@@ -189,26 +189,6 @@ input[type=text]:focus { border-color:var(--g); }
 .error-box { background:rgba(255,80,80,0.06);border:1px solid rgba(255,80,80,0.2);border-radius:12px;padding:16px;font-size:14px;color:#ff7070;margin-top:16px; }
 .error-box a { color:var(--g); }
 
-/* ---- DEV SETUP BANNER (only shown when CLIENT_ID is placeholder) ---- */
-.dev-banner {
-  background: #1a1200;
-  border: 1px solid #4a3200;
-  border-radius: 14px;
-  padding: 20px 24px;
-  margin-bottom: 28px;
-  font-size: 13px;
-  line-height: 1.8;
-  color: #c8a44a;
-}
-.dev-banner strong { color: #f5c842; }
-.dev-banner code {
-  background: rgba(255,200,50,0.1);
-  border: 1px solid rgba(255,200,50,0.2);
-  border-radius: 5px;
-  padding: 1px 7px;
-  font-size: 12px;
-  font-family: monospace;
-}
 </style>
 </head>
 <body>
@@ -227,14 +207,6 @@ input[type=text]:focus { border-color:var(--g); }
 
   <!-- ===== LANDING ===== -->
   <div id="landingScreen" class="screen active">
-
-    <!-- Dev setup banner — hidden once CLIENT_ID is set -->
-    <div class="dev-banner" id="devBanner">
-      <strong>👋 Developer setup required</strong><br>
-      Replace <code>YOUR_SPOTIFY_CLIENT_ID</code> at the top of this file's <code>&lt;script&gt;</code> with your actual Spotify Client ID.<br>
-      Then add <code id="devRedirectHint"></code> as a Redirect URI in your <a href="https://developer.spotify.com/dashboard" target="_blank" style="color:#f5c842">Spotify app settings</a>.<br>
-      Once done, this banner disappears and users can connect with one click.
-    </div>
 
     <div class="hero">
       <h1>FIND YOUR<br><em>ARTISTS</em><br>ON TOUR</h1>
@@ -305,7 +277,7 @@ input[type=text]:focus { border-color:var(--g); }
 // ============================================================
 //  ✏️  DEVELOPER: paste your Spotify Client ID here (just once)
 // ============================================================
-const CLIENT_ID = 'YOUR_SPOTIFY_CLIENT_ID';
+const CLIENT_ID = '690c2178bb6e4aa5a28f5fb9a05a84a2';
 // ============================================================
 
 const SCOPES = 'user-top-read user-read-private';
@@ -320,16 +292,7 @@ let state = {
   radius: ''
 };
 
-// ---- Show dev banner if CLIENT_ID not set ----
 window.addEventListener('load', async () => {
-  document.getElementById('devRedirectHint').textContent = REDIRECT_URI;
-
-  if (CLIENT_ID === 'YOUR_SPOTIFY_CLIENT_ID') {
-    document.getElementById('devBanner').style.display = 'block';
-  } else {
-    document.getElementById('devBanner').style.display = 'none';
-  }
-
   // Restore saved location
   const saved = JSON.parse(localStorage.getItem('tt_loc') || '{}');
   if (saved.city) {
@@ -377,11 +340,6 @@ function base64urlencode(buffer) {
 }
 
 async function connectSpotify() {
-  if (CLIENT_ID === 'YOUR_SPOTIFY_CLIENT_ID') {
-    alert('Developer: please set your CLIENT_ID in the script first.');
-    return;
-  }
-
   const city = document.getElementById('landingCity').value.trim();
   const radius = document.getElementById('landingRadius').value.trim();
   if (!city) { alert('Please enter your city first.'); return; }
@@ -445,21 +403,22 @@ async function loadSpotifyData() {
   showScreen('mainScreen');
 
   try {
-    const [profileRes, longRes, medRes] = await Promise.all([
+    const [profileRes, shortRes, medRes, longRes] = await Promise.all([
       spotifyFetch('https://api.spotify.com/v1/me'),
-      spotifyFetch('https://api.spotify.com/v1/me/top/artists?limit=30&time_range=long_term'),
-      spotifyFetch('https://api.spotify.com/v1/me/top/artists?limit=20&time_range=medium_term')
+      spotifyFetch('https://api.spotify.com/v1/me/top/artists?limit=50&time_range=short_term'),
+      spotifyFetch('https://api.spotify.com/v1/me/top/artists?limit=50&time_range=medium_term'),
+      spotifyFetch('https://api.spotify.com/v1/me/top/artists?limit=50&time_range=long_term')
     ]);
 
     state.user = profileRes;
     renderUserChip(profileRes);
 
-    // Merge & dedupe, medium_term first (more recent listening)
+    // Merge all 3 ranges & dedupe — short_term first (most recent), then medium, then long
     const seen = new Set();
-    const merged = [...medRes.items, ...longRes.items].filter(a => {
+    const merged = [...shortRes.items, ...medRes.items, ...longRes.items].filter(a => {
       if (seen.has(a.id)) return false;
       seen.add(a.id); return true;
-    }).slice(0, 30);
+    }).slice(0, 100);
 
     state.artists = merged.map(a => ({
       id: a.id,
@@ -597,7 +556,7 @@ Rules: include every artist; "touring" only if real nearby dates found; max 3 sh
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 2000,
+        max_tokens: 4000,
         tools: [{ type: 'web_search_20250305', name: 'web_search' }],
         messages: [{ role: 'user', content: prompt }]
       })
