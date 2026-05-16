@@ -69,15 +69,14 @@ nav {
 .hero h1 em { color:var(--g);font-style:normal; }
 .hero p { margin-top:20px;color:var(--muted);font-size:16px;max-width:420px;margin-inline:auto;line-height:1.6; }
 
-.loc-card {
+.setup-card {
   background:var(--card);border:1px solid var(--border);
-  border-radius:20px;padding:24px;margin-bottom:20px;
+  border-radius:20px;padding:24px;margin-bottom:16px;
 }
-.loc-card h3 { font-size:15px;font-weight:600;margin-bottom:4px; }
-.loc-sub { font-size:12px;color:var(--muted);margin-bottom:16px; }
-
-.input-row { display:grid;grid-template-columns:1fr 1fr;gap:14px; }
-@media(max-width:520px){.input-row{grid-template-columns:1fr;}}
+.setup-card h3 { font-size:15px;font-weight:600;margin-bottom:4px; }
+.setup-sub { font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6; }
+.setup-sub a { color:var(--g);text-decoration:none; }
+.setup-sub a:hover { text-decoration:underline; }
 
 .label { font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px; }
 
@@ -87,6 +86,9 @@ input[type=text] {
   font-size:14px;padding:13px 16px;outline:none;transition:border-color 0.2s;
 }
 input[type=text]:focus { border-color:var(--g); }
+
+.input-row { display:grid;grid-template-columns:1fr 1fr;gap:14px; }
+@media(max-width:520px){.input-row{grid-template-columns:1fr;}}
 
 .btn-spotify {
   display:flex;align-items:center;justify-content:center;gap:12px;
@@ -108,7 +110,7 @@ input[type=text]:focus { border-color:var(--g); }
 .step-pill strong { color:var(--text); }
 
 /* ---- MAIN ---- */
-.top-bar { display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:16px; }
+.top-bar { display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:16px; }
 .top-bar h2 { font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px; }
 
 .artist-chips { display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px; }
@@ -141,13 +143,12 @@ input[type=text]:focus { border-color:var(--g); }
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.status-bar {
-  display:none;align-items:center;gap:12px;
-  background:rgba(29,185,84,0.06);border:1px solid rgba(29,185,84,0.15);
-  border-radius:12px;padding:14px 18px;font-size:13px;color:var(--g);margin:20px 0;
-}
-
 .divider { height:1px;background:var(--border);margin:24px 0; }
+
+.progress-wrap { margin:20px 0 0; }
+.progress-label { font-size:12px;color:var(--muted);margin-bottom:8px; }
+.progress-bar-bg { height:4px;background:var(--border);border-radius:2px;overflow:hidden; }
+.progress-bar-fill { height:100%;background:var(--g);border-radius:2px;transition:width 0.3s ease;width:0%; }
 
 /* ---- RESULTS ---- */
 .results-header { display:flex;align-items:baseline;gap:10px;margin:28px 0 16px; }
@@ -159,12 +160,11 @@ input[type=text]:focus { border-color:var(--g); }
 .acard {
   background:var(--card);border:1px solid var(--border);
   border-radius:14px;padding:18px;
-  animation:fadeUp 0.4s ease both;
   transition:border-color 0.2s,transform 0.2s;
 }
 .acard:hover { transform:translateY(-2px);border-color:var(--dim); }
 .acard.touring { border-color:rgba(29,185,84,0.3);background:linear-gradient(145deg,#111 0%,#0d1f12 100%); }
-.acard.nodates { opacity:0.55; }
+.acard.nodates { opacity:0.5; }
 
 .acard-top { display:flex;align-items:center;gap:12px;margin-bottom:14px; }
 .acard-img { width:46px;height:46px;border-radius:50%;object-fit:cover;flex-shrink:0;background:var(--card2); }
@@ -177,18 +177,28 @@ input[type=text]:focus { border-color:var(--g); }
 .badge-off { background:rgba(255,255,255,0.04);color:var(--dim);border:1px solid #1e1e1e; }
 
 .show-list { list-style:none; }
-.show-item { padding:9px 0;border-bottom:1px solid #1a1a1a;font-size:13px; }
+.show-item {
+  padding:9px 0;border-bottom:1px solid #1a1a1a;font-size:13px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:8px;
+}
 .show-item:last-child { border-bottom:none;padding-bottom:0; }
 .show-date { font-size:11px;color:var(--g);font-weight:600;margin-bottom:2px; }
-.show-venue { color:var(--text);font-weight:500; }
+.show-venue { color:var(--text);font-weight:500;font-size:13px; }
 .show-city { color:var(--muted);font-size:12px; }
+.show-ticket {
+  display:inline-flex;align-items:center;
+  background:rgba(29,185,84,0.1);border:1px solid rgba(29,185,84,0.25);
+  color:var(--g);border-radius:6px;padding:4px 10px;
+  font-size:11px;font-weight:600;text-decoration:none;white-space:nowrap;
+  transition:background 0.15s;flex-shrink:0;margin-top:2px;
+}
+.show-ticket:hover { background:rgba(29,185,84,0.2); }
 .no-shows-msg { font-size:13px;color:var(--muted);font-style:italic; }
-
 .genre-tag { display:inline-block;background:#1a1a1a;border:1px solid #222;border-radius:6px;padding:2px 8px;font-size:11px;color:var(--muted);margin-right:4px;margin-bottom:4px; }
-
 .error-box { background:rgba(255,80,80,0.06);border:1px solid rgba(255,80,80,0.2);border-radius:12px;padding:16px;font-size:14px;color:#ff7070;margin-top:16px; }
 .error-box a { color:var(--g); }
-
+.powered-by { text-align:center;margin-top:40px;font-size:11px;color:#333;letter-spacing:0.5px; }
+.powered-by span { color:#444; }
 </style>
 </head>
 <body>
@@ -207,23 +217,21 @@ input[type=text]:focus { border-color:var(--g); }
 
   <!-- ===== LANDING ===== -->
   <div id="landingScreen" class="screen active">
-
     <div class="hero">
       <h1>FIND YOUR<br><em>ARTISTS</em><br>ON TOUR</h1>
-      <p>Connect your Spotify account and discover which artists you love are playing near you.</p>
+      <p>Connect your Spotify, enter your location, and see exactly who's playing near you — powered by real Ticketmaster data.</p>
     </div>
-
-    <div class="loc-card">
-      <h3>Where are you?</h3>
-      <div class="loc-sub">Used to find shows near you — you can change this anytime.</div>
+    <div class="setup-card">
+      <h3>Your Location</h3>
+      <div class="setup-sub">Used to find shows near you. You can update this anytime.</div>
       <div class="input-row">
         <div>
-          <div class="label">City / Region</div>
-          <input type="text" id="landingCity" placeholder="e.g. Chicago, IL" />
+          <div class="label">City</div>
+          <input type="text" id="landingCity" placeholder="e.g. New York" />
         </div>
         <div>
-          <div class="label">Search Radius</div>
-          <input type="text" id="landingRadius" placeholder="e.g. 100 miles" />
+          <div class="label">Radius (miles)</div>
+          <input type="text" id="landingRadius" placeholder="e.g. 50" />
         </div>
       </div>
     </div>
@@ -234,9 +242,9 @@ input[type=text]:focus { border-color:var(--g); }
     </button>
 
     <div class="steps-hint">
-      <div class="step-pill">🔒 <span>We <strong>never store</strong> your data</span></div>
-      <div class="step-pill">🎵 <span>Reads your <strong>top artists</strong> only</span></div>
-      <div class="step-pill">🗺️ <span>AI finds <strong>nearby shows</strong></span></div>
+      <div class="step-pill">🎟️ <span><strong>Real</strong> Ticketmaster data</span></div>
+      <div class="step-pill">🔒 <span><strong>No account</strong> needed</span></div>
+      <div class="step-pill">💸 <span>Completely <strong>free</strong></span></div>
     </div>
   </div>
 
@@ -245,7 +253,7 @@ input[type=text]:focus { border-color:var(--g); }
     <div class="top-bar">
       <div>
         <h2>YOUR ARTISTS</h2>
-        <div style="font-size:13px;color:var(--muted);margin-top:2px">Select which artists to check</div>
+        <div style="font-size:13px;color:var(--muted);margin-top:2px">Select which artists to check for tour dates</div>
       </div>
     </div>
 
@@ -254,105 +262,77 @@ input[type=text]:focus { border-color:var(--g); }
 
     <div class="label">Location</div>
     <div class="loc-row">
-      <input type="text" id="mainCity" placeholder="City / Region" />
-      <input type="text" id="mainRadius" placeholder="Radius (e.g. 100 mi)" style="max-width:160px" />
+      <input type="text" id="mainCity" placeholder="City" />
+      <input type="text" id="mainRadius" placeholder="Radius (miles)" style="max-width:160px" />
     </div>
-    <div style="font-size:12px;color:var(--muted);margin-top:6px">AI searches for shows within this area</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:6px">Searches Ticketmaster for upcoming shows in this area</div>
 
     <button class="btn-search" id="searchBtn" onclick="findTours()">
       <span class="spin" id="spinner" style="display:none;border-top-color:#000;border-color:rgba(0,0,0,0.2)"></span>
       <span id="btnText">FIND TOUR DATES</span>
     </button>
 
-    <div class="status-bar" id="statusBar">
-      <div class="spin"></div>
-      <span id="statusText">Searching…</span>
+    <div class="progress-wrap" id="progressWrap" style="display:none">
+      <div class="progress-label" id="progressLabel">Checking artists…</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
     </div>
 
     <div id="results"></div>
+    <div class="powered-by">Ticket data by <span>Ticketmaster</span> · Artist data by <span>Spotify</span></div>
   </div>
 </div>
 
 <script>
 // ============================================================
-//  ✏️  DEVELOPER: paste your Spotify Client ID here (just once)
+//  Spotify Client ID
 // ============================================================
-const CLIENT_ID = '690c2178bb6e4aa5a28f5fb9a05a84a2';
+const SPOTIFY_CLIENT_ID = '690c2178bb6e4aa5a28f5fb9a05a84a2';
+const TM_API_KEY = 'iZwcOSxBju1RqhxnnIT5bG9X98aIlY7y';
 // ============================================================
 
 const SCOPES = 'user-top-read user-read-private';
 const REDIRECT_URI = window.location.href.split('?')[0].split('#')[0];
 
 let state = {
-  token: '',
-  user: null,
-  artists: [],
-  selected: new Set(),
-  city: '',
-  radius: ''
+  token: '', user: null, artists: [],
+  selected: new Set(), city: '', radius: '50', tmKey: TM_API_KEY
 };
 
+// ---- Init ----
 window.addEventListener('load', async () => {
-  // Restore saved location
-  const saved = JSON.parse(localStorage.getItem('tt_loc') || '{}');
-  if (saved.city) {
-    document.getElementById('landingCity').value = saved.city;
-    document.getElementById('mainCity').value = saved.city;
-  }
-  if (saved.radius) {
-    document.getElementById('landingRadius').value = saved.radius;
-    document.getElementById('mainRadius').value = saved.radius;
-  }
+  const saved = JSON.parse(localStorage.getItem('tt_prefs') || '{}');
+  if (saved.city)   document.getElementById('landingCity').value   = saved.city;
+  if (saved.radius) document.getElementById('landingRadius').value = saved.radius;
 
-  // Handle OAuth callback
   const params = new URLSearchParams(window.location.search);
+  if (params.get('error')) { window.history.replaceState({}, '', window.location.pathname); return; }
   const code = params.get('code');
-  const error = params.get('error');
-
-  if (error) {
-    window.history.replaceState({}, '', window.location.pathname);
-    return;
-  }
-
-  if (code) {
-    window.history.replaceState({}, '', window.location.pathname);
-    await exchangeCode(code);
-  }
+  if (code) { window.history.replaceState({}, '', window.location.pathname); await exchangeCode(code); }
 });
 
 // ---- PKCE helpers ----
-function generateRandomString(length) {
+function rndStr(n) {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const arr = new Uint8Array(length);
-  crypto.getRandomValues(arr);
+  const arr = new Uint8Array(n); crypto.getRandomValues(arr);
   return Array.from(arr).map(b => chars[b % chars.length]).join('');
 }
+async function sha256(s) { return crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); }
+function b64url(buf) { return btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''); }
 
-async function sha256(plain) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(plain);
-  return crypto.subtle.digest('SHA-256', data);
-}
-
-function base64urlencode(buffer) {
-  return btoa(String.fromCharCode(...new Uint8Array(buffer)))
-    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
-
+// ---- Connect Spotify ----
 async function connectSpotify() {
-  const city = document.getElementById('landingCity').value.trim();
-  const radius = document.getElementById('landingRadius').value.trim();
-  if (!city) { alert('Please enter your city first.'); return; }
+  const city   = document.getElementById('landingCity').value.trim();
+  const radius = document.getElementById('landingRadius').value.trim() || '50';
+  if (!city)  { alert('Please enter your city.'); return; }
 
-  localStorage.setItem('tt_loc', JSON.stringify({ city, radius }));
+  localStorage.setItem('tt_prefs', JSON.stringify({ city, radius }));
 
-  // Generate PKCE verifier + challenge
-  const verifier = generateRandomString(64);
-  const challenge = base64urlencode(await sha256(verifier));
+  const verifier  = rndStr(64);
+  const challenge = b64url(await sha256(verifier));
   sessionStorage.setItem('pkce_verifier', verifier);
 
   const url = new URL('https://accounts.spotify.com/authorize');
-  url.searchParams.set('client_id', CLIENT_ID);
+  url.searchParams.set('client_id', SPOTIFY_CLIENT_ID);
   url.searchParams.set('response_type', 'code');
   url.searchParams.set('redirect_uri', REDIRECT_URI);
   url.searchParams.set('scope', SCOPES);
@@ -361,78 +341,60 @@ async function connectSpotify() {
   window.location.href = url.toString();
 }
 
+// ---- Exchange code ----
 async function exchangeCode(code) {
   const verifier = sessionStorage.getItem('pkce_verifier');
   if (!verifier) { showScreen('landingScreen'); return; }
-
   try {
     const res = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        grant_type: 'authorization_code',
-        code,
-        redirect_uri: REDIRECT_URI,
-        client_id: CLIENT_ID,
-        code_verifier: verifier
-      })
+      body: new URLSearchParams({ grant_type:'authorization_code', code,
+        redirect_uri: REDIRECT_URI, client_id: SPOTIFY_CLIENT_ID, code_verifier: verifier })
     });
-
     const data = await res.json();
-    if (!res.ok) throw new Error(data.error_description || 'Token exchange failed');
-
+    if (!res.ok) throw new Error(data.error_description || 'Token error');
     state.token = data.access_token;
     sessionStorage.removeItem('pkce_verifier');
 
-    // Restore location from before redirect
-    const saved = JSON.parse(localStorage.getItem('tt_loc') || '{}');
-    state.city = saved.city || '';
-    state.radius = saved.radius || '';
-    document.getElementById('mainCity').value = state.city;
+    const saved = JSON.parse(localStorage.getItem('tt_prefs') || '{}');
+    state.city   = saved.city   || '';
+    state.radius = saved.radius || '50';
+    state.tmKey  = TM_API_KEY;
+    document.getElementById('mainCity').value   = state.city;
     document.getElementById('mainRadius').value = state.radius;
-
     await loadSpotifyData();
-  } catch(err) {
-    showScreen('landingScreen');
-    console.error('Auth error:', err);
-  }
+  } catch(err) { showScreen('landingScreen'); console.error(err); }
 }
 
-// ---- Load Spotify data ----
+// ---- Load Spotify artists ----
 async function loadSpotifyData() {
   showScreen('mainScreen');
-
   try {
     const [profileRes, shortRes, medRes, longRes] = await Promise.all([
       spotifyFetch('https://api.spotify.com/v1/me'),
       spotifyFetch('https://api.spotify.com/v1/me/top/artists?limit=50&time_range=short_term'),
       spotifyFetch('https://api.spotify.com/v1/me/top/artists?limit=50&time_range=medium_term'),
-      spotifyFetch('https://api.spotify.com/v1/me/top/artists?limit=50&time_range=long_term')
+      spotifyFetch('https://api.spotify.com/v1/me/top/artists?limit=50&time_range=long_term'),
     ]);
-
     state.user = profileRes;
     renderUserChip(profileRes);
 
-    // Merge all 3 ranges & dedupe — short_term first (most recent), then medium, then long
     const seen = new Set();
     const merged = [...shortRes.items, ...medRes.items, ...longRes.items].filter(a => {
-      if (seen.has(a.id)) return false;
-      seen.add(a.id); return true;
+      if (seen.has(a.id)) return false; seen.add(a.id); return true;
     }).slice(0, 100);
 
     state.artists = merged.map(a => ({
-      id: a.id,
-      name: a.name,
+      id: a.id, name: a.name,
       image: a.images?.[1]?.url || a.images?.[0]?.url || '',
-      genres: a.genres?.slice(0, 2) || []
+      genres: a.genres?.slice(0,2) || []
     }));
-
     state.selected = new Set(state.artists.map(a => a.id));
     renderArtistChips();
-
   } catch(err) {
     document.getElementById('results').innerHTML =
-      `<div class="error-box">Couldn't load Spotify data: ${escHtml(err.message)}. <a href="#" onclick="logout()">Try reconnecting</a>.</div>`;
+      `<div class="error-box">Couldn't load Spotify data: ${escHtml(err.message)}. <a href="#" onclick="logout()">Reconnect</a></div>`;
   }
 }
 
@@ -442,192 +404,165 @@ async function spotifyFetch(url) {
   return res.json();
 }
 
-// ---- UI ----
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+// ---- Ticketmaster search ----
+async function searchTicketmaster(artistName, city, radius, tmKey) {
+  const params = new URLSearchParams({
+    apikey: tmKey, keyword: artistName, city, radius,
+    unit: 'miles', classificationName: 'music', sort: 'date,asc', size: '5'
+  });
+  const res = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?${params}`);
+  if (!res.ok) throw new Error(`Ticketmaster ${res.status}`);
+  const data = await res.json();
+  return (data._embedded?.events || []).map(e => ({
+    date:  e.dates?.start?.localDate ? formatDate(e.dates.start.localDate) : 'Date TBA',
+    time:  e.dates?.start?.localTime ? formatTime(e.dates.start.localTime) : '',
+    venue: e._embedded?.venues?.[0]?.name || 'Venue TBA',
+    city:  [e._embedded?.venues?.[0]?.city?.name, e._embedded?.venues?.[0]?.state?.stateCode].filter(Boolean).join(', '),
+    url:   e.url || null
+  }));
 }
 
+function formatDate(str) {
+  const [y,m,d] = str.split('-');
+  return `${ ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m)-1]} ${parseInt(d)}, ${y}`;
+}
+function formatTime(str) {
+  const [h,m] = str.split(':'); const hr = parseInt(h);
+  return `${hr>12?hr-12:hr||12}:${m} ${hr>=12?'PM':'AM'}`;
+}
+
+// ---- Main search ----
+async function findTours() {
+  const city   = document.getElementById('mainCity').value.trim();
+  const radius = document.getElementById('mainRadius').value.trim() || '50';
+  const tmKey  = TM_API_KEY;
+
+  if (!city)   { alert('Please enter your city.'); return; }
+  if (state.selected.size === 0) { alert('Please select at least one artist.'); return; }
+
+  const selected = state.artists.filter(a => state.selected.has(a.id));
+
+  const btn = document.getElementById('searchBtn');
+  btn.disabled = true;
+  document.getElementById('spinner').style.display = 'block';
+  document.getElementById('btnText').textContent = 'SEARCHING…';
+  document.getElementById('progressWrap').style.display = 'block';
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('results').innerHTML = '';
+
+  const results = [];
+  for (let i = 0; i < selected.length; i++) {
+    const artist = selected[i];
+    document.getElementById('progressLabel').textContent =
+      `Checking ${artist.name}… (${i+1} of ${selected.length})`;
+    document.getElementById('progressFill').style.width = `${Math.round((i/selected.length)*100)}%`;
+    try {
+      const shows = await searchTicketmaster(artist.name, city, radius, tmKey);
+      results.push({ artist, shows });
+    } catch(err) {
+      results.push({ artist, shows: [], error: err.message });
+    }
+    if (i < selected.length - 1) await sleep(120);
+  }
+
+  document.getElementById('progressFill').style.width = '100%';
+  await sleep(200);
+  document.getElementById('progressWrap').style.display = 'none';
+  btn.disabled = false;
+  document.getElementById('spinner').style.display = 'none';
+  document.getElementById('btnText').textContent = 'FIND TOUR DATES';
+
+  renderResults(results, city);
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ---- Render results ----
+function renderResults(results, city) {
+  const touring = results.filter(r => r.shows.length > 0);
+  const noShows = results.filter(r => r.shows.length === 0);
+
+  const card = ({ artist, shows, error }) => {
+    const hasTour = shows.length > 0;
+    const imgTag  = artist.image ? `<img class="acard-img" src="${escHtml(artist.image)}" alt="">` : `<div class="acard-img"></div>`;
+    const genres  = artist.genres.map(g=>`<span class="genre-tag">${escHtml(g)}</span>`).join('');
+    const badge   = hasTour ? `<span class="badge badge-on">● TOURING</span>` : `<span class="badge badge-off">NO DATES</span>`;
+    const body    = hasTour
+      ? `<ul class="show-list">${shows.map(s=>`
+          <li class="show-item">
+            <div>
+              <div class="show-date">${escHtml(s.date)}${s.time?' · '+escHtml(s.time):''}</div>
+              <div class="show-venue">${escHtml(s.venue)}</div>
+              <div class="show-city">${escHtml(s.city)}</div>
+            </div>
+            ${s.url?`<a href="${escHtml(s.url)}" target="_blank" class="show-ticket">Tickets ↗</a>`:''}
+          </li>`).join('')}</ul>`
+      : `<div class="no-shows-msg">${error?'⚠️ '+escHtml(error):'No upcoming shows near '+escHtml(city)}</div>`;
+
+    return `<div class="acard ${hasTour?'touring':'nodates'}">
+      <div class="acard-top">${imgTag}<div class="acard-info">
+        <div class="acard-name">${escHtml(artist.name)}</div>
+        <div class="acard-genre">${genres}</div>
+      </div>${badge}</div>${body}</div>`;
+  };
+
+  document.getElementById('results').innerHTML = `
+    <div class="results-header">
+      <span class="results-title">RESULTS</span>
+      <span class="results-count">${touring.length} of ${results.length} artists have shows near ${escHtml(city)}</span>
+    </div>
+    <div class="artist-grid">
+      ${touring.map(r=>card(r)).join('')}
+      ${noShows.map(r=>card(r)).join('')}
+    </div>
+    ${touring.length===0?`<div style="text-align:center;padding:32px;color:var(--muted);font-size:14px">No nearby shows found. Try increasing your radius or check back as new dates are announced.</div>`:''}
+  `;
+}
+
+// ---- UI helpers ----
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 function renderUserChip(user) {
   document.getElementById('userName').textContent = user.display_name || user.id;
   const img = document.getElementById('userAvatar');
-  const avatar = user.images?.[0]?.url;
-  if (avatar) { img.src = avatar; img.style.display = ''; }
-  else img.style.display = 'none';
+  const av  = user.images?.[0]?.url;
+  if (av) { img.src=av; img.style.display=''; } else img.style.display='none';
   document.getElementById('userChip').style.display = 'flex';
 }
-
 function renderArtistChips() {
-  const container = document.getElementById('artistChips');
-  container.innerHTML = '';
-
-  const allChip = document.createElement('div');
-  allChip.className = 'chip chip-all selected';
-  allChip.innerHTML = `<span>All ${state.artists.length}</span>`;
-  allChip.onclick = () => toggleAll(allChip);
-  container.appendChild(allChip);
-
+  const c = document.getElementById('artistChips');
+  c.innerHTML = '';
+  const all = document.createElement('div');
+  all.className = 'chip chip-all selected';
+  all.innerHTML = `<span>All ${state.artists.length}</span>`;
+  all.onclick = () => toggleAll(all);
+  c.appendChild(all);
   state.artists.forEach(a => {
     const chip = document.createElement('div');
-    chip.className = 'chip selected';
-    chip.dataset.id = a.id;
-    chip.innerHTML = (a.image ? `<img src="${escHtml(a.image)}" alt="">` : '') + `<span>${escHtml(a.name)}</span>`;
-    chip.onclick = () => toggleArtist(a.id, chip, allChip);
-    container.appendChild(chip);
+    chip.className = 'chip selected'; chip.dataset.id = a.id;
+    chip.innerHTML = (a.image?`<img src="${escHtml(a.image)}" alt="">`:'') + `<span>${escHtml(a.name)}</span>`;
+    chip.onclick = () => toggleArtist(a.id, chip, all);
+    c.appendChild(chip);
   });
 }
-
 function toggleAll(allChip) {
-  const allSelected = state.selected.size === state.artists.length;
-  if (allSelected) {
-    state.selected.clear();
-    allChip.classList.remove('selected');
-    document.querySelectorAll('.chip[data-id]').forEach(c => c.classList.remove('selected'));
-  } else {
-    state.artists.forEach(a => state.selected.add(a.id));
-    allChip.classList.add('selected');
-    document.querySelectorAll('.chip[data-id]').forEach(c => c.classList.add('selected'));
-  }
+  const allSel = state.selected.size === state.artists.length;
+  if (allSel) { state.selected.clear(); allChip.classList.remove('selected'); document.querySelectorAll('.chip[data-id]').forEach(c=>c.classList.remove('selected')); }
+  else { state.artists.forEach(a=>state.selected.add(a.id)); allChip.classList.add('selected'); document.querySelectorAll('.chip[data-id]').forEach(c=>c.classList.add('selected')); }
 }
-
 function toggleArtist(id, chip, allChip) {
   state.selected.has(id) ? state.selected.delete(id) : state.selected.add(id);
   chip.classList.toggle('selected', state.selected.has(id));
   allChip.classList.toggle('selected', state.selected.size === state.artists.length);
 }
-
 function logout() {
-  state = { token:'', user:null, artists:[], selected:new Set(), city:'', radius:'' };
+  state = { token:'',user:null,artists:[],selected:new Set(),city:'',radius:'50',tmKey:TM_API_KEY };
   document.getElementById('userChip').style.display = 'none';
   document.getElementById('results').innerHTML = '';
   showScreen('landingScreen');
 }
-
-// ---- Find Tours ----
-async function findTours() {
-  const city = document.getElementById('mainCity').value.trim();
-  const radius = document.getElementById('mainRadius').value.trim();
-  if (!city) { alert('Please enter your city.'); return; }
-  if (state.selected.size === 0) { alert('Please select at least one artist.'); return; }
-
-  const selected = state.artists.filter(a => state.selected.has(a.id));
-  const names = selected.map(a => a.name);
-
-  const btn = document.getElementById('searchBtn');
-  const spinner = document.getElementById('spinner');
-  const btnText = document.getElementById('btnText');
-  const statusBar = document.getElementById('statusBar');
-  const resultsDiv = document.getElementById('results');
-
-  btn.disabled = true;
-  spinner.style.display = 'block';
-  btnText.textContent = 'SEARCHING…';
-  statusBar.style.display = 'flex';
-  document.getElementById('statusText').textContent = `Checking ${selected.length} artists for shows near ${city}…`;
-  resultsDiv.innerHTML = '';
-
-  const locationDesc = radius ? `${city} (within ${radius})` : city;
-  const today = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-
-  const prompt = `You are a live music assistant. Today: ${today}.
-User location: ${locationDesc}
-Artists to check: ${names.join(', ')}
-
-Use web search to find confirmed upcoming tour dates near "${locationDesc}" for each artist. Check Ticketmaster, Bandsintown, Songkick, and official artist pages. Include shows within the radius, or ~150 miles if unspecified.
-
-Respond with ONLY a raw JSON array — no markdown, no extra text:
-
-[
-  {
-    "artist": "name exactly as given",
-    "status": "touring" or "not_found",
-    "shows": [
-      { "date": "Month DD, YYYY", "venue": "Venue Name", "city": "City, State" }
-    ],
-    "note": "brief note under 10 words"
-  }
-]
-
-Rules: include every artist; "touring" only if real nearby dates found; max 3 shows per artist; be honest if uncertain.`;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 4000,
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error?.message || 'API error');
-
-    let raw = '';
-    for (const b of data.content) { if (b.type === 'text') raw += b.text; }
-
-    const match = raw.match(/\[[\s\S]*\]/);
-    if (!match) throw new Error('Could not parse AI response');
-    const tourData = JSON.parse(match[0]);
-    renderResults(tourData, selected, city);
-
-  } catch(err) {
-    resultsDiv.innerHTML = `<div class="error-box">⚠️ ${escHtml(err.message)}</div>`;
-  } finally {
-    btn.disabled = false;
-    spinner.style.display = 'none';
-    btnText.textContent = 'FIND TOUR DATES';
-    statusBar.style.display = 'none';
-  }
-}
-
-function renderResults(tourData, selectedArtists, city) {
-  const imgMap = Object.fromEntries(selectedArtists.map(a => [a.name.toLowerCase(), a]));
-  const touring = tourData.filter(a => a.status === 'touring' && a.shows?.length > 0);
-  const noShows = tourData.filter(a => !(a.status === 'touring' && a.shows?.length > 0));
-
-  const renderCard = (a, hasTour) => {
-    const meta = imgMap[a.artist.toLowerCase()] || {};
-    const imgTag = meta.image
-      ? `<img class="acard-img" src="${escHtml(meta.image)}" alt="">`
-      : `<div class="acard-img"></div>`;
-    const genres = (meta.genres || []).map(g => `<span class="genre-tag">${escHtml(g)}</span>`).join('');
-    const badge = hasTour
-      ? `<span class="badge badge-on">● TOURING</span>`
-      : `<span class="badge badge-off">NO DATES</span>`;
-    const body = hasTour && a.shows?.length
-      ? `<ul class="show-list">${a.shows.map(s => `
-          <li class="show-item">
-            <div class="show-date">${escHtml(s.date)}</div>
-            <div class="show-venue">${escHtml(s.venue)}</div>
-            <div class="show-city">${escHtml(s.city)}</div>
-          </li>`).join('')}</ul>`
-      : `<div class="no-shows-msg">${escHtml(a.note || 'No nearby shows found')}</div>`;
-
-    return `<div class="acard ${hasTour ? 'touring' : 'nodates'}">
-      <div class="acard-top">${imgTag}<div class="acard-info">
-        <div class="acard-name">${escHtml(a.artist)}</div>
-        <div class="acard-genre">${genres}</div>
-      </div>${badge}</div>${body}</div>`;
-  };
-
-  const html = `
-    <div class="results-header">
-      <span class="results-title">RESULTS</span>
-      <span class="results-count">${touring.length} of ${tourData.length} playing near ${escHtml(city)}</span>
-    </div>
-    <div class="artist-grid">
-      ${touring.map(a => renderCard(a, true)).join('')}
-      ${noShows.map(a => renderCard(a, false)).join('')}
-    </div>
-    ${touring.length === 0 ? `<div style="text-align:center;padding:32px;color:var(--muted);font-size:14px">No nearby shows found. Try a wider radius or check back later.</div>` : ''}
-  `;
-
-  document.getElementById('results').innerHTML = html;
-}
-
 function escHtml(s) {
   if (!s) return '';
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
